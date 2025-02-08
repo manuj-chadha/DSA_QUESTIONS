@@ -8,9 +8,7 @@ class Solution {
             sum+=nums[i];
             int modulo=sum%k;
             if(modulo<0) modulo+=k;
-            if(map.containsKey(modulo)){
-                total+=map.get(modulo);
-            }
+            total+=map.getOrDefault(modulo, 0);
             map.put(modulo, map.getOrDefault(modulo, 0)+1);
         }
         return total;
