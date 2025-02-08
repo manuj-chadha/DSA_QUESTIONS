@@ -5,18 +5,12 @@ class Solution {
         long count=0;
         long sum=0;
         while(end<nums.length){
-            int len=end-start+1;
             sum+=nums[end];
-            long product=sum*len;
-            while(product>=k && start<=end){
-                product/=len;
-                len--;
-                product-=nums[start];
-                product*=len;
+            while((sum*(end-start+1))>=k){
                 sum-=nums[start];
                 start++;
             }
-            count+=len;
+            count+=(end-start+1);
             end++;
         }
         return count;
