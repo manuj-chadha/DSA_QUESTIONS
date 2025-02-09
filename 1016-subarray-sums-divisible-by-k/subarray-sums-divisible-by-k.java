@@ -8,9 +8,7 @@ class Solution {
             sum+=nums[i];
             int val=sum%k;
             if(val<0) val+=k;
-            if(map.containsKey(val)){
-                total+=map.get(val);
-            }
+            total+=map.getOrDefault(val, 0);
             map.put(val, map.getOrDefault(val,0)+1);
         }
         return total;
