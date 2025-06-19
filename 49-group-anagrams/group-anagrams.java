@@ -7,6 +7,10 @@ class Solution {
             String sequence=new String(chars);
             map.computeIfAbsent(sequence, k-> new ArrayList<>()).add(str);
         }
-        return new ArrayList<>(map.values());
+        List<List<String>> list=new ArrayList<>();
+        for(List<String> group : map.values()){
+            list.add(group);
+        }
+        return list;
     }
 }
