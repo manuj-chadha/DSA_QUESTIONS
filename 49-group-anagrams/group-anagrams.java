@@ -14,7 +14,14 @@ class Solution {
             }
             String sequence=sb.toString();
             
-            map.computeIfAbsent(sequence, k-> new ArrayList<>()).add(str);
+            if(map.containsKey(sequence)){
+                map.get(sequence).add(str); 
+            }
+            else {
+                List<String> list=new ArrayList<>();
+                list.add(str);
+                map.put(sequence, list);
+            }
         }
         List<List<String>> list=new ArrayList<>();
         for (List<String> group : map.values()) {
