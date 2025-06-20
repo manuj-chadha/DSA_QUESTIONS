@@ -14,20 +14,23 @@
  * }
  */
 class Solution {
+    int post, in;
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        if(postorder.length<=0){
+        post=postorder.length-1;
+        in=inorder.length-1;
+        return buildTree(inorder, postorder, Integer.MIN_VALUE);
+    }
+
+    public TreeNode buildTree(int[] inorder, int[] postorder, int stop) {
+        if(post<0) return null;
+
+        if(inorder[in]==stop){
+            in--;
             return null;
         }
-        int val=postorder[postorder.length-1];
-        int index=0;
-        for(int i=0;i<inorder.length;i++){
-            if(inorder[i]==val){
-                index=i;
-            }
-        }
-        TreeNode root=new TreeNode(val);
-        root.left=buildTree(Arrays.copyOfRange(inorder, 0, index), Arrays.copyOfRange(postorder, 0, index));
-        root.right=buildTree(Arrays.copyOfRange(inorder, index+1, inorder.length), Arrays.copyOfRange(postorder, index, postorder.length-1));
-        return root;
+        TreeNode node=new TreeNode(postorder[post--]);
+        node.right=buildTree(inorder, postorder, node.val);
+        node.left=buildTree(inorder, postorder, stop);
+        return node;
     }
 }
