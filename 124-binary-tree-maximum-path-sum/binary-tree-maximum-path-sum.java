@@ -20,15 +20,12 @@ class Solution {
         return max;
     }
     public int helper(TreeNode root){
-        if(root==null){
-            return 0;
-        }
-        int left=helper(root.left);
-        int right=helper(root.right);
-        left=Math.max(0, left);
-        right=Math.max(0, right);
-        max=Math.max(max, left+right+root.val);
-        return Math.max(left,right)+root.val;
+        if(root==null) return 0;
+        int left=Math.max(0, helper(root.left));
+        int right=Math.max(0, helper(root.right));
+        
+        int localMax=root.val+left+right;
+        max=Math.max(max, localMax);
+        return root.val+Math.max(left, right);
     }
-
 }
