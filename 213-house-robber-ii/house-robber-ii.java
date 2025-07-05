@@ -1,23 +1,22 @@
 class Solution {
-    int[] dp1, dp2;
-    int n=0;
     public int rob(int[] nums) {
-        n=nums.length;
-        if (n == 1) return nums[0];
-        dp1=new int[n-1];
-        dp2=new int[n-1];
-        Arrays.fill(dp1, -1);
-        Arrays.fill(dp2, -1);
-        return Math.max(robfromZero(nums, n-1, 0), robfromOne(nums, n, 1));
+        int n=nums.length;
+        if(n==1) return nums[0];
+        if(n==2) return Math.max(nums[0], nums[1]);
+        return Math.max(robber(nums, 0, n-2), robber(nums, 1, n-1));
     }
-    public int robfromZero(int[] nums, int end, int index){
-        if(index>=end) return 0;
-        if(dp1[index]!=-1) return dp1[index];
-        return dp1[index]=Math.max(robfromZero(nums, end, index+2)+nums[index], robfromZero(nums, end, index+1));
+    int robber(int[] nums, int start, int end){
+        int len=end-start+1;
+        int[] dp=new int[len];
+        dp[len-1]=nums[end];
+        if(len>1){
+            dp[len-2]=Math.max(nums[end], nums[end-1]);
+        }
+        for(int i=len-3;i>=0;i--){
+            dp[i]=Math.max(dp[i+1], dp[i+2]+nums[start+i]);
+        }
+        return dp[0];
+
     }
-    public int robfromOne(int[] nums, int end, int index){
-        if(index>=end) return 0;
-        if(dp2[index-1]!=-1) return dp2[index-1];
-        return dp2[index-1]=Math.max(robfromOne(nums, end, index+2)+nums[index], robfromOne(nums, end, index+1));
-    }
+
 }
