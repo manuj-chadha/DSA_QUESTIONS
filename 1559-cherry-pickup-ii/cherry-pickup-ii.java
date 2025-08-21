@@ -4,30 +4,29 @@ class Solution {
         int rows=grid.length;
         int cols=grid[0].length;
         dp=new int[rows][cols][cols];
-        for(int[][] i: dp){
-            for(int[] j: i){
-                Arrays.fill(j, -1);
+        for(int i=0;i<cols;i++){
+            for(int j=0;j<cols;j++){
+                if(i==j) dp[rows-1][i][j]=grid[rows-1][i];
+                else dp[rows-1][i][j]=grid[rows-1][i]+grid[rows-1][j];
             }
         }
-        return cherryPickup(grid, 0, 0, cols-1);
-    }
-    private int cherryPickup(int[][] grid, int r, int c1, int c2){
-        if(c1<0 || c1>=grid[0].length || c2<0 || c2>=grid[0].length){
-            return (int)-1e8;
-        }
-        if(r==grid.length-1){
-            if(c1==c2) return grid[r][c1];
-            else return grid[r][c1]+grid[r][c2];
-        } 
-        if(dp[r][c1][c2]!=-1) return dp[r][c1][c2];
-
-        int result=Integer.MIN_VALUE;
-        for(int i=-1;i<2;i++){
-            for(int j=-1;j<2;j++){
-                result=Math.max(result, cherryPickup(grid, r+1, c1+i, c2+j));
+        
+        for(int row=rows-2;row>=0;row--){
+            for(int i=0;i<cols;i++){
+                for(int j=0;j<cols;j++){
+                    int result=Integer.MIN_VALUE;
+                    for(int r=-1;r<2;r++){
+                        for(int c=-1;c<2;c++){
+                            if((i+r)>=0 && (i+r)<cols && (j+c)>=0 && (j+c)<cols) {
+                                result=Math.max(result, dp[row+1][i+r][j+c]);
+                            }
+                        }
+                    }
+                    if(i==j) dp[row][i][j]=grid[row][i]+result;
+                    else dp[row][i][j]=grid[row][i]+grid[row][j]+result;
+                }
             }
         }
-        if(c1==c2) return dp[r][c1][c2]=grid[r][c1]+result;
-        return dp[r][c1][c2]=grid[r][c1]+grid[r][c2]+result;
+        return dp[0][0][cols-1];
     }
 }
