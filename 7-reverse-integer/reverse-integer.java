@@ -1,25 +1,23 @@
 class Solution {
     public int reverse(int x) {
-        int sign= (x<0) ? -1 : 1;
-        String num=String.valueOf(Math.abs(x));
-        char[] ch=num.toCharArray();
-        int start=0;
-        int end=num.length()-1;
-        while(start<end){
-            char temp=ch[start];
-            ch[start]=ch[end];
-            ch[end]=temp;
-            start++;
-            end--;
-        }
-        String s=new String(ch);
-        int n;
-        try {
-            n = Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            return 0;
-        }
-        return n*sign;
+        int num=Math.abs(x);
+        int rev=0;
+        try{
+            while(num>0){
+                int d=num%10;
+                if (rev > Integer.MAX_VALUE/10 || 
+                (rev == Integer.MAX_VALUE/10 && d > 7)) return 0;
+                if (rev < Integer.MIN_VALUE/10 || 
+                (rev == Integer.MIN_VALUE/10 && d > 8)) return 0;
 
+                rev=rev*10+d;
+                num/=10;
+            }
+        } catch(NumberFormatException e){
+            return 0;
+        } 
+
+        if(x<0) return rev*(-1);
+        return rev;
     }
 }
