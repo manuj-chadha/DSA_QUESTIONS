@@ -11,13 +11,13 @@ class Solution {
             }
         }
         for(int i=0;i<nums.length;i++){
-            if(nums[i]!=i+1) return i+1;
+            if(nums[i]-1!=i) return i+1;
         }
         return nums.length+1;
     }
-    public void swap(int[] arr, int f, int s){
-        int temp=arr[f];
-        arr[f]=arr[s];
-        arr[s]=temp;
+    private void swap(int[] nums, int s, int e){
+        int temp=nums[s];
+        nums[s]=nums[e];
+        nums[e]=temp;
     }
 }
