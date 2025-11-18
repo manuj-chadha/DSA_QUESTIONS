@@ -10,7 +10,7 @@ class Solution {
             }
         }
         if(ind==-1) {
-            Arrays.sort(nums);
+            reverse(nums, 0, n-1);
             return;
         }
         for(int i=n-1;i>ind;i--){
@@ -19,12 +19,13 @@ class Solution {
                 break;
             }
         }
-        int i=ind+1;
-        n--;
-        while(i<n){
-            swap(nums, i, n);
-            i++;
-            n--;
+        reverse(nums, ind+1, n-1);
+    }
+    private void reverse(int[] nums, int left, int right){
+        while(left<right){
+            swap(nums, left, right);
+            left++;
+            right--;
         }
     }
     private void swap(int[] nums, int i, int j){
