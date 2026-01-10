@@ -3,13 +3,14 @@ class Solution {
         int i=0;
         int j=1;
         while(j<nums.length){
-            while(j<nums.length && nums[i]==nums[j]){
+            if(nums[i]==nums[j]){
                 j++;
             }
-            if(j==nums.length) return i+1;
-            i++;
-            nums[i]=nums[j];
-            j++;
+            else {
+                i++;
+                nums[i]=nums[j];
+                j++;
+            }
         }
         return i+1;
     }
