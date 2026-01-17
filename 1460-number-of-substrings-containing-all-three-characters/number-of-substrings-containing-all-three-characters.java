@@ -11,7 +11,6 @@ class Solution {
             while(map.size()==3){
                 char chLeft=s.charAt(left);
                 substrings+=size-right;
-                System.out.println(size-right);
                 map.put(chLeft, map.get(chLeft)-1);
                 if(map.get(chLeft)==0) map.remove(chLeft);
                 left++;
