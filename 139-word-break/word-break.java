@@ -8,7 +8,6 @@ class Solution {
         if(i==s.length()) return true;
         if(dp[i]!=null) return dp[i];
         for(String word : wordDict){
-            System.out.println(i);
             if(i+word.length()<=s.length() && 
             s.substring(i, i+word.length()).equals(word)){
                 if(findWordBreak(s, wordDict, i+word.length())){
