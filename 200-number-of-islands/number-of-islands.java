@@ -1,38 +1,28 @@
 class Solution {
     boolean[][] visited;
     public int numIslands(char[][] grid) {
-        int m=grid.length;
-        int n=grid[0].length;
-        visited=new boolean[m][n];
+        visited=new boolean[grid.length][grid[0].length];
         int islands=0;
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(grid[i][j]=='1' && !visited[i][j]){
-                    dfs(grid, i, j);
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(!visited[i][j] && grid[i][j]=='1'){
+                    islands(grid, i, j);
                     islands++;
                 }
             }
         }
         return islands;
-
     }
-    private void dfs(char[][] grid, int i, int j){
-    visited[i][j] = true;
-
-    int[] dx = {-1, 0, 0, 1};
-    int[] dy = {0, -1, 1, 0};
-    
-    for (int dir = 0; dir < 4; dir++) {
-        int newRow = i + dx[dir];
-        int newCol = j + dy[dir];
-        
-        if (newRow >= 0 && newRow < grid.length && 
-            newCol >= 0 && newCol < grid[0].length && 
-            !visited[newRow][newCol] && grid[newRow][newCol] == '1') {
-            dfs(grid, newRow, newCol);
+    private void islands(char[][] grid, int i, int j) {
+        visited[i][j]=true;
+        int[] x={0, 1, -1, 0};
+        int[] y={-1, 0, 0, 1};
+        for(int a=0;a<4;a++){
+            int newX=i+x[a];
+            int newY=j+y[a];
+            if(newX>=0 && newX<grid.length && newY>=0 && newY<grid[0].length){
+                if(!visited[newX][newY] && grid[newX][newY]=='1') islands(grid, newX, newY);
+            }
         }
     }
-}
-
-
 }
