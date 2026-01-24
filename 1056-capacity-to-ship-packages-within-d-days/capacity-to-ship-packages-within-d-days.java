@@ -22,6 +22,7 @@ class Solution {
             if(currWeight+num>val){
                 countedDays++;
                 currWeight=num;
+                if(countedDays>days) return false;
             }
             else currWeight+=num;
         }
