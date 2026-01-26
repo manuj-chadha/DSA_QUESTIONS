@@ -1,20 +1,16 @@
 class Solution {
+    int[][] dp;
     public int maxProfit(int[] prices) {
-        int n=prices.length;
-        int[] prev=new int[2];
-        
-        for(int i=n-1;i>=0;i--){
-            int[] curr=new int[2];
-            int buy=prev[1] - prices[i];
-            int notBuy=prev[0];
-            curr[0]=Math.max(buy, notBuy);
-
-            int sell=prev[0] + prices[i];
-            int notSell=prev[1];
-            curr[1]=Math.max(sell, notSell);
-
-            prev=curr;
+        dp=new int[prices.length][2];
+        for(int[] num: dp) Arrays.fill(num, -1);
+        return findProfit(prices, 0, 1);
+    }
+    private int findProfit(int[] nums, int i, int canBuy){
+        if(i==nums.length) return 0;
+        if(dp[i][canBuy]!=-1) return dp[i][canBuy];
+        if(canBuy==1){
+            return dp[i][canBuy]=Math.max(findProfit(nums, i+1, 0)-nums[i], findProfit(nums, i+1, 1));
         }
-        return prev[0];
+        return dp[i][canBuy]=Math.max(findProfit(nums, i+1, 1)+nums[i], findProfit(nums, i+1, 0));
     }
 }
