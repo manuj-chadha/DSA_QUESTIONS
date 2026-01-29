@@ -14,7 +14,6 @@ class Solution {
                 left++;
             }
             max=Math.max(max, right-left+1);
-            System.out.println(max);
             right++;
         }
         return max;
