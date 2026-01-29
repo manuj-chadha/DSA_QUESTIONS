@@ -1,35 +1,38 @@
 class Solution {
     public String minWindow(String s, String t) {
-        HashMap<Character, Integer> map=new HashMap<>();
-        int total=t.length();
-        for(int i=0;i<total;i++){
-            char ch=t.charAt(i);
-            map.put(ch, map.getOrDefault(ch, 0)+1);
+        if (t.length() > s.length()) return "";
+
+        int[] need = new int[128];
+        for (char c : t.toCharArray()) {
+            need[c]++;
         }
-        int start=0;
-        int end=0;
-        int size=Integer.MAX_VALUE;
-        int index=-1;
-        
-        while(end<s.length()){
-            char ch=s.charAt(end);
-            map.put(ch, map.getOrDefault(ch, 0)-1);
-            if(map.get(ch)>=0) total--;
-            while(total==0 && start<=end){
-                if(size>end-start+1){
-                    size=end-start+1;
-                    index=start;
+
+        int required = t.length();
+        int left = 0, right = 0;
+        int minLen = Integer.MAX_VALUE;
+        int start = 0;
+
+        while (right < s.length()) {
+            char c = s.charAt(right);
+            if (need[c] > 0) required--;
+            need[c]--;
+            right++;
+
+            while (required == 0) {
+                if (right - left < minLen) {
+                    minLen = right - left;
+                    start = left;
                 }
-                char c=s.charAt(start);
-                map.put(c, map.get(c)+1);
-                if(map.get(c)>0){
-                    total++;
-                } 
-                start++;
+
+                char lc = s.charAt(left);
+                need[lc]++;
+                if (need[lc] > 0) required++;
+                left++;
             }
-            end++;
         }
-        if(size==Integer.MAX_VALUE) return "";
-        return s.substring(index, index+size);
+
+        return minLen == Integer.MAX_VALUE 
+            ? "" 
+            : s.substring(start, start + minLen);
     }
 }
