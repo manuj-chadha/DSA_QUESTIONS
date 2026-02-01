@@ -9,7 +9,7 @@ class Solution {
             char ch=s.charAt(right);
             hash[ch-'A']++;
             maxFreq=Math.max(maxFreq, hash[ch-'A']);
-            while(((right-left+1)-maxFreq)>k){
+            if(((right-left+1)-maxFreq)>k){
                 hash[s.charAt(left)-'A']--;
                 left++;
             }
