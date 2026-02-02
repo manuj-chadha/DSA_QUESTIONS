@@ -1,30 +1,27 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
+        int i=0;
         Arrays.sort(nums);
-        int n=nums.length;
-        List<List<Integer>> list=new ArrayList<>();
-        for(int i=0;i<n-2;i++){
-            if(i>0 && nums[i]==nums[i-1]) continue;
-            int low=i+1;
-            int high=n-1;
-            while(low<high){
-                int sum=nums[i]+nums[low]+nums[high];
-
-                if(sum==0){
-                    List<Integer> triplet=new ArrayList<>();
-                    triplet.add(nums[i]);
-                    triplet.add(nums[low]);
-                    triplet.add(nums[high]);
-                    list.add(triplet);
-                    while(low<high && nums[low]==nums[low+1]) low++;
-                    while(low<high && nums[high]==nums[high-1]) high--;
-                    low++;
-                    high--;
+        List<List<Integer>> triplets=new ArrayList<>();
+        while(i<nums.length-2) {
+            int val=nums[i];
+            int j=i+1;
+            int k=nums.length-1;
+            while(j<k){
+                int sum=nums[j]+nums[k];
+                if(sum==(-val)){
+                    triplets.add(new ArrayList<>(Arrays.asList(nums[i], nums[j], nums[k])));
+                    j++;
+                    while(j<nums.length && nums[j]==nums[j-1]) j++;
+                    k--;
+                    while(k>=0 && nums[k]==nums[k+1]) k--;
                 }
-                else if(sum>0) high--;
-                else low++;
+                else if(sum>(-val)) k--;
+                else j++;
             }
+            i++;
+            while(i<nums.length && nums[i]==nums[i-1]) i++;
         }
-        return list;
+        return triplets;
     }
 }
