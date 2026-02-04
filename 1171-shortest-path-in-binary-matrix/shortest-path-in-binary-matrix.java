@@ -23,9 +23,8 @@ class Solution {
                     }
                 }
             }
-            if(queue.isEmpty()) return -1;
             shortest++;
         }
-        return shortest;
+        return -1;
     }
 }
