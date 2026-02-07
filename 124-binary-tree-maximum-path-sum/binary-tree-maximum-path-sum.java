@@ -20,7 +20,7 @@ class Solution {
         return maxValue;
     }
     private int findMax(TreeNode root) {
-        if(root==null) return Integer.MIN_VALUE;
+        if(root==null) return 0;
         int left=Math.max(findMax(root.left), 0);
         int right=Math.max(findMax(root.right), 0);
         maxValue=Math.max(maxValue, left+right+root.val);
