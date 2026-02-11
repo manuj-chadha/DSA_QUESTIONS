@@ -1,19 +1,17 @@
 class Solution {
     public int rob(int[] nums) {
-        int n=nums.length;
-        if(n==1) return nums[0];
-        return Math.max(rob(nums, 0, n-2), rob(nums, 1, n-1));
+        if(nums.length==1) return nums[0];
+        if(nums.length==2) return Math.max(nums[0], nums[1]);
+        return Math.max(houseRobber(nums, 0, nums.length-1), houseRobber(nums, 1, nums.length));
     }
-    private int rob(int[] nums, int start, int end){
-        if (start == end) return nums[start];
-        int iminus2=nums[start];
-        int iminus1=Math.max(nums[start], nums[start+1]);
-        for(int i=start+2;i<=end;i++){
-            int left=iminus1;
-            int right=nums[i]+iminus2;
-            iminus2=iminus1;
-            iminus1=Math.max(left, right);
+    private int houseRobber(int[] nums, int s, int e) {
+        int prev=nums[s];
+        int curr=Math.max(nums[s], nums[s+1]);
+        for(int i=s+2;i<e;i++){
+            int max=Math.max(prev+nums[i], curr);
+            prev=curr;
+            curr=max;
         }
-        return iminus1;
+        return curr;
     }
 }
