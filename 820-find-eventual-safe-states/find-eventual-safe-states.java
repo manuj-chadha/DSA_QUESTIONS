@@ -1,34 +1,31 @@
 class Solution {
+    List<Integer> ans;
     public List<Integer> eventualSafeNodes(int[][] graph) {
-        int m=graph.length;
-        boolean[] visited=new boolean[m];
-        boolean[] pathVisited=new boolean[m];
-        int[] safe=new int[m];
-        for(int i=0;i<m;i++){
+        ans=new ArrayList<>();
+        boolean[] visited=new boolean[graph.length];
+        boolean[] pathVisited=new boolean[graph.length];
+        for(int i=0;i<graph.length;i++){
             if(!visited[i]){
-                dfs(graph, visited, pathVisited, safe, i);
+                eventualSafe(graph, i, visited, pathVisited);
             }
         }
-        ArrayList<Integer> list=new ArrayList<>();
-        for(int i=0;i<safe.length;i++){
-            if(safe[i]==1) list.add(i);
-        }
-        return list;
+        Collections.sort(ans);
+        return ans;
     }
-    private boolean dfs(int[][] graph, boolean[] visited, boolean[] pathVisited, int[] safe, int i){
+    private boolean eventualSafe(int[][] graph, int i, boolean[] visited, boolean[] pathVisited){
         visited[i]=true;
         pathVisited[i]=true;
-        int[] list=graph[i];
-        for(int val: list){
-            if(!visited[val]){
-                if(!dfs(graph, visited, pathVisited, safe, val)){
-                    return false;
-                }
+        int[] neighbors=graph[i];
+        for(int a=0;a<neighbors.length;a++) {
+            if(!visited[neighbors[a]]){
+                if(!eventualSafe(graph, neighbors[a], visited, pathVisited)) return false;
             }
-            else if(pathVisited[val]) return false;
+            else if(pathVisited[neighbors[a]]){
+                return false;
+            }
         }
         pathVisited[i]=false;
-        safe[i]=1;
+        ans.add(i);
         return true;
     }
 }
