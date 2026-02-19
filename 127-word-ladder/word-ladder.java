@@ -21,8 +21,7 @@ class Solution {
                         }
                         if(set.contains(formed)){
                             queue.add(formed);
-                        System.out.println(formed);
-                            if(set.contains(formed)) set.remove(formed);
+                            set.remove(formed);
                         }
                     }
                 }
