@@ -22,6 +22,7 @@ class Solution {
                 for(int i=0;i<word.length();i++) {
                     for(int j=0;j<26;j++) {
                         String formed=word.substring(0, i)+(char)('a'+j)+word.substring(i+1, word.length());
+                        if(formed.equals(word)) continue;
                         if(distance.containsKey(formed)){
                             if(formed.equals(endWord)) endLevel=true;
                             if(distance.get(formed)==Integer.MAX_VALUE) {
@@ -31,7 +32,7 @@ class Solution {
                                 parents.put(formed, list);
                                 queue.add(formed);
                             }
-                            else if(distance.containsKey(formed) && distance.get(formed)==distance.get(word)+1){
+                            else if(distance.get(formed)==distance.get(word)+1){
                                 List<String> list=parents.get(formed);
                                 list.add(word);
                                 parents.put(formed, list);
@@ -45,6 +46,7 @@ class Solution {
         }
         List<List<String>> ans=new ArrayList<>();
         List<String> path=new ArrayList<>();
+        if(distance.get(endWord)==Integer.MAX_VALUE) return new ArrayList<>();
         findList(parents, endWord, beginWord, path, ans);
         for(List<String> list: ans) {
             Collections.reverse(list);
