@@ -13,15 +13,14 @@ class Solution {
             parents.put(wordList.get(i), new ArrayList<>());
         }
         distance.put(beginWord, 0);
-        parents.put(beginWord, new ArrayList<>());
         while(!queue.isEmpty()) {
             int n=queue.size();
             boolean endLevel=false;
             for(int a=0;a<n;a++) {
                 String word=queue.poll();
+                char[] ch=word.toCharArray();
                 for(int i=0;i<word.length();i++) {
                     for(int j=0;j<26;j++) {
-                        char[] ch=word.toCharArray();
                         ch[i]=(char) ('a'+j);
                         String formed=String.valueOf(ch);
                         if(formed.equals(word)) continue;
@@ -42,6 +41,7 @@ class Solution {
                             // ignore for else
                         }
                     }
+                    ch[i]=word.charAt(i);
                 }
             }
             if(endLevel) break;
