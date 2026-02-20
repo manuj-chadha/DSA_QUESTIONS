@@ -21,7 +21,9 @@ class Solution {
                 String word=queue.poll();
                 for(int i=0;i<word.length();i++) {
                     for(int j=0;j<26;j++) {
-                        String formed=word.substring(0, i)+(char)('a'+j)+word.substring(i+1, word.length());
+                        char[] ch=word.toCharArray();
+                        ch[i]=(char) ('a'+j);
+                        String formed=String.valueOf(ch);
                         if(formed.equals(word)) continue;
                         if(distance.containsKey(formed)){
                             if(formed.equals(endWord)) endLevel=true;
