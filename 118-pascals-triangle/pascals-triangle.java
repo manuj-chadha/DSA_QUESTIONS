@@ -6,9 +6,7 @@ class Solution {
         }
         ans.get(0).add(1);
         if(numRows==1) return ans;
-        ans.get(1).add(1);
-        ans.get(1).add(1);
-        for(int i=2;i<numRows;i++) {
+        for(int i=1;i<numRows;i++) {
             ans.get(i).add(1);
             for(int j=1;j<i;j++){
                 int left=ans.get(i-1).get(j-1);
