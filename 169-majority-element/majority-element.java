@@ -4,13 +4,10 @@ class Solution {
         int occurance=0;
         for(int num: nums){
             if(occurance==0){
-                occurance++;
                 element=num;
             }
-            else {
-                if(num==element) occurance++;
-                else occurance--;
-            }
+            if(num==element) occurance++;
+            else occurance--;
         }
         return element;
     }
