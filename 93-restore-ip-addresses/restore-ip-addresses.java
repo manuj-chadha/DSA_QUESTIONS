@@ -10,8 +10,8 @@ class Solution {
             if(start == s.length()) {
                 String ip=String.join(".", segments);
                 ans.add(ip);
-                return;
             }
+            return;
         }
         for(int i=start;i<s.length();i++){
             String str=s.substring(start, i+1);
